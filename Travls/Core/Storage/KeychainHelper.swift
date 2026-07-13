@@ -4,6 +4,7 @@ import Security
 enum KeychainKey: String {
     case accessToken  = "com.travls.accessToken"
     case refreshToken = "com.travls.refreshToken"
+    case pin          = "com.travls.pin"
 }
 
 final class KeychainHelper {

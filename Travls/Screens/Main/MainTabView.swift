@@ -1,66 +1,69 @@
 import SwiftUI
 
-enum Tab: Int, CaseIterable {
-    case home     = 0
-    case explore  = 1
-    case bookings = 2
-    case profile  = 3
+enum TravlsTab: CaseIterable {
+    case home, cards, rewards, profile
 
-    var title: String {
+    var label: String {
         switch self {
-        case .home:     return "Home"
-        case .explore:  return "Explore"
-        case .bookings: return "My Trips"
-        case .profile:  return "Profile"
+        case .home:    return "Home"
+        case .cards:   return "Cards"
+        case .rewards: return "Rewards"
+        case .profile: return "Profile"
         }
     }
 
     var icon: String {
         switch self {
-        case .home:     return "house"
-        case .explore:  return "globe"
-        case .bookings: return "suitcase"
-        case .profile:  return "person"
-        }
-    }
-
-    var selectedIcon: String {
-        switch self {
-        case .home:     return "house.fill"
-        case .explore:  return "globe"
-        case .bookings: return "suitcase.fill"
-        case .profile:  return "person.fill"
+        case .home:    return "house.fill"
+        case .cards:   return "creditcard.fill"
+        case .rewards: return "trophy.fill"
+        case .profile: return "person.fill"
         }
     }
 }
 
 struct MainTabView: View {
     @EnvironmentObject private var appSession: AppSession
-    @State private var selectedTab: Tab = .home
+    @State private var selectedTab: TravlsTab = .home
 
     var body: some View {
         TabView(selection: $selectedTab) {
             HomeView()
-                .tag(Tab.home)
-                .tabItem { Label(Tab.home.title, systemImage: Tab.home.icon) }
+                .tabItem { Label(TravlsTab.home.label,    systemImage: TravlsTab.home.icon) }
+                .tag(TravlsTab.home)
 
-            ExploreView()
-                .tag(Tab.explore)
-                .tabItem { Label(Tab.explore.title, systemImage: Tab.explore.icon) }
+            CardsPlaceholderView()
+                .tabItem { Label(TravlsTab.cards.label,   systemImage: TravlsTab.cards.icon) }
+                .tag(TravlsTab.cards)
 
-            BookingsView()
-                .tag(Tab.bookings)
-                .tabItem { Label(Tab.bookings.title, systemImage: Tab.bookings.icon) }
+            RewardsPlaceholderView()
+                .tabItem { Label(TravlsTab.rewards.label, systemImage: TravlsTab.rewards.icon) }
+                .tag(TravlsTab.rewards)
 
             ProfileView(appSession: appSession)
-                .tag(Tab.profile)
-                .tabItem { Label(Tab.profile.title, systemImage: Tab.profile.icon) }
+                .tabItem { Label(TravlsTab.profile.label, systemImage: TravlsTab.profile.icon) }
+                .tag(TravlsTab.profile)
         }
-        .tint(TravlsTheme.Colors.primary)
+        .tint(Color(hex: "#F2C94C"))
     }
 }
 
-#Preview {
-    MainTabView()
-        .environmentObject(AppSession())
+private struct CardsPlaceholderView: View {
+    var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            Text("Cards").foregroundStyle(.white).font(.title)
+        }
+    }
 }
+
+private struct RewardsPlaceholderView: View {
+    var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            Text("Rewards").foregroundStyle(.white).font(.title)
+        }
+    }
+}
+
+#Preview { MainTabView().environmentObject(AppSession()) }

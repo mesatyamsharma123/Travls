@@ -1,9 +1,11 @@
 import Foundation
 
 enum UserDefaultsKey: String {
-    case userId              = "com.travls.userId"
-    case userName            = "com.travls.userName"
-    case hasSeenOnboarding   = "com.travls.hasSeenOnboarding"
+    case userId                  = "com.travls.userId"
+    case userName                = "com.travls.userName"
+    case hasSeenOnboarding       = "com.travls.hasSeenOnboarding"
+    case useFaceID               = "com.travls.useFaceID"
+    case hasCompletedOnboarding  = "com.travls.hasCompletedOnboarding"
 }
 
 final class UserDefaultsHelper {
