@@ -1,36 +1,25 @@
+// NetworkManager/Endpoints/AuthEndpoints.swift
+
 import Foundation
 
-enum AuthEndpoints: APIEndpoint {
-    // PHONE LOGIN - NOT NEEDED
-    // case requestOTP(phone: String, countryCode: String)
-    // case verifyOTP(phone: String, otp: String)
-    // case register(userId: String, name: String, email: String?)
-    // case refreshToken(token: String)
+enum AuthEndpoints {
+    private static var base: String { Configuration.shared.environment.baseURL }
 
-    case googleAuth(idToken: String)
-    case appleAuth(identityToken: String)
-
-    var path: String {
-        switch self {
-        case .googleAuth:  return "/auth/google"
-        case .appleAuth:   return "/auth/apple"
-        }
+    static func googleAuth(idToken: String) throws -> APIRequest {
+        try APIRequest(
+            urlString: "\(base)/auth/google",
+            method: .post,
+            auth: .none,
+            body: ["idToken": idToken]
+        )
     }
 
-    var method: HTTPMethod {
-        switch self {
-        case .googleAuth, .appleAuth: return .post
-        }
-    }
-
-    var requiresAuth: Bool { false }
-
-    var body: Encodable? {
-        switch self {
-        case .googleAuth(let idToken):
-            return ["idToken": idToken]
-        case .appleAuth(let identityToken):
-            return ["identityToken": identityToken]
-        }
+    static func appleAuth(identityToken: String) throws -> APIRequest {
+        try APIRequest(
+            urlString: "\(base)/auth/apple",
+            method: .post,
+            auth: .none,
+            body: ["identityToken": identityToken]
+        )
     }
 }

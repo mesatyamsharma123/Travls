@@ -1,3 +1,5 @@
+// NetworkManager/Core/HTTPMethod.swift
+
 import Foundation
 
 enum HTTPMethod: String {
@@ -6,4 +8,11 @@ enum HTTPMethod: String {
     case put    = "PUT"
     case patch  = "PATCH"
     case delete = "DELETE"
+}
+
+enum AuthStyle {
+    case none
+    case accessToken    // x-access-token: <token>
+    case bearer         // Authorization: Bearer <token>
+    case plain          // Authorization: <token>
 }
