@@ -98,6 +98,7 @@ final class AuthViewModel: ObservableObject {
             // let appleCredential = try await AppleSignIn.signIn()
             // let credential = try await network.request(AuthEndpoints.appleAuth(identityToken: appleCredential.identityToken))
             // appSession.login(accessToken: credential.accessToken, refreshToken: credential.refreshToken, userId: credential.userId, userName: appleCredential.fullName)
+            print("Sign in with Apple")
         } catch {
             errorMessage = (error as? NetworkError)?.errorDescription ?? error.localizedDescription
         }
