@@ -82,6 +82,7 @@ final class AuthViewModel: ObservableObject {
         // let googleUser = try await GoogleSignIn.signIn()
         // let credential = try await network.request(AuthEndpoints.googleAuth(idToken: googleUser.idToken))
         try? await Task.sleep(nanoseconds: 3_000_000_000)
+        print("All good")
         if PINManager.shared.hasPIN() {
             appSession.login(accessToken: "mock_google_token", refreshToken: nil, userId: "mock_user", userName: "Traveller")
         } else {
